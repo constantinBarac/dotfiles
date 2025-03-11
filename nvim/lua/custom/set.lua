@@ -16,6 +16,8 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv 'HOME' .. '/.vim/undodir'
 vim.opt.undofile = true
+vim.g.undotree_WindowLayout = 2
+vim.g.undotree_SetFocusWhenToggle = 1
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
