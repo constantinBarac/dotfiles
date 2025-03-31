@@ -270,16 +270,21 @@ require('lazy').setup({
         },
       },
       'saadparwaiz1/cmp_luasnip',
-
-      -- Adds other completion capabilities.
-      --  nvim-cmp does not ship with all sources by default. They are split
-      --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      {
+        -- add vscode-style icons to completion menu
+        'onsails/lspkind-nvim',
+        config = function()
+          require('lspkind').init()
+        end,
+      },
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
+      local cmp_buffer = require 'cmp_buffer'
       local luasnip = require 'luasnip'
       luasnip.add_snippets('all', require 'snippets.cbar')
       luasnip.config.setup {}
@@ -352,7 +357,34 @@ require('lazy').setup({
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          {
+            name = 'buffer',
+            option = {
+              -- Complete from all visible buffers.
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end,
+            },
+          },
           { name = 'path' },
+        },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            function(...)
+              return cmp_buffer:compare_locality(...)
+            end,
+            compare.offset,
+            compare.exact,
+            compare.score,
+            require('cmp-under-comparator').under,
+            compare.recently_used,
+            compare.locality,
+            compare.kind,
+            compare.sort_text,
+            compare.length,
+            compare.order,
+          },
         },
       }
     end,
