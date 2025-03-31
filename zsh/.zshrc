@@ -1,5 +1,5 @@
-SCRIPT_LOCATION=$(dirname "$(readlink -f "$0")")
-source $SCRIPT_LOCATION/utils.sh
+typeset  -aU path
+
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -13,8 +13,9 @@ fi
 export PATH=/home/cbar/.local/bin:$PATH
 export PATH=/home/cbar/.local/bin/scripts:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin:/home/cbar/go/bin
-export PATH=$PATH:/opt/nvim-linux64/bin
+export PATH=$PATH:/home/cbar/.nodenv/bin
+export PATH=$PATH:/home/cbar/.nodenv/versions/18.18.2/lib
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -125,11 +126,6 @@ export DEPLOY_TOKEN_PASSWORD="GfiHGScVX_Xu-DE-rUZY"
 export DEPLOY_TOKEN_USERNAME="gitlab+deploy-token-888312"
 export CI_PROJECT_ID="20107144"
 
-# Windows desktop path
-export WD="/mnt/c/Users/ilcon/Desktop"
-
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
 alias va='source venv/bin/activate'
 alias vc='python -m venv venv'
 alias vca='python -m venv venv; va'
@@ -141,8 +137,14 @@ alias cdam="cd ~/repos/stt/Apollo/microservices"
 alias cdaf="cd ~/repos/stt/Apollo/function-source"
 alias vim="nvim"
 
-eval "$(zoxide init zsh)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source <(fzf --zsh)
+eval "$(zoxide init zsh)"
+eval "$(nodenv init - zsh)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -152,3 +154,5 @@ source <(fzf --zsh)
 # Source the Lazyman .nvimsbind for nvims key binding
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
+
+export CLOUDSDK_PYTHON=$(which python3)
