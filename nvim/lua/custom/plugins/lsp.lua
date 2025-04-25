@@ -181,6 +181,17 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              gofumpt = true,
+            },
+          },
+        },
         pyright = {},
         bashls = {},
         gopls = {},
@@ -277,6 +288,7 @@ return {
         typescriptreact = { 'prettierd' },
         html = { 'prettierd' },
         json = { 'prettierd' },
+        python = { 'ruff_organize_imports', 'ruff_format', 'ruff_fix' },
       },
     },
   },
