@@ -183,7 +183,7 @@ return {
       local servers = {
         pyright = {},
         bashls = {},
-
+        gopls = {},
         terraformls = {},
         tflint = {},
         lua_ls = {
