@@ -1,22 +1,24 @@
 return {
   'nvim-neotest/neotest',
   dependencies = {
-    'haydenmeade/neotest-jest',
     'nvim-neotest/nvim-nio',
     'nvim-lua/plenary.nvim',
     'stevearc/overseer.nvim',
+    { 'fredrikaverpil/neotest-golang', version = '*' }, -- Installation
   },
   config = function()
-    local neotest_jest = require 'neotest-jest'
+    local neotest_golang = require 'neotest-golang'
     local neotest = require 'neotest'
+
     neotest.setup {
       adapters = {
-        neotest_jest {
-          cwd = neotest_jest.root,
+        neotest_golang {
+          go_test_args = { '-v', '-race', '-count=1', '-timeout=60s' },
+          dap_go_enabled = true,
         },
       },
       discovery = {
-        enabled = false,
+        enabled = true,
       },
       consumers = {
         overseer = require 'neotest.consumers.overseer',
@@ -31,7 +33,7 @@ return {
         end, { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }),
       },
       output = {
-        open_on_run = false,
+        open_on_run = true,
       },
     }
     vim.keymap.set('n', '<leader>tf', function()
