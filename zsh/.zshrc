@@ -33,5 +33,4 @@ eval "$(direnv hook zsh)"
 eval "$(nodenv init - --no-rehash bash)"
 eval "$(zoxide init zsh)"
 
-
 source ~/.airc

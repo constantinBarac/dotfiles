@@ -535,6 +535,18 @@ require('lazy').setup({
 })
 
 vim.treesitter.language.register('python', 'tiltfile')
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+vim.api.nvim_create_autocmd(
+  -- Events to trigger on
+  { 'BufRead', 'BufNewFile' },
+  {
+    -- Patterns to match against
+    pattern = {
+      '*/templates/*.yaml',
+      '*/templates/*.tpl',
+      '*.gotmpl',
+      'helmfile*.yaml',
+    },
+    -- Command to execute
+    command = 'set filetype=helm',
+  }
+)
