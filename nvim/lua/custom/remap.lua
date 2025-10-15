@@ -17,7 +17,23 @@ vim.keymap.set('x', '<leader>p', [["_dP]])
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 
-vim.keymap.set('n', '<leader>crp', ':let @+ = expand("%:.")<CR>', { desc = 'Copy relative path' })
+vim.keymap.set({ 'n', 'v' }, '<leader>crp', function()
+  local file_path = vim.fn.expand '%:.'
+  local mode = vim.fn.mode()
+  local location
+  if mode == 'v' or mode == 'V' or mode == string.char(22) then
+    local start_line = vim.fn.line "'<"
+    local end_line = vim.fn.line "'>"
+    if start_line == end_line then
+      location = file_path .. ':' .. start_line
+    else
+      location = file_path .. ':' .. start_line .. '-' .. end_line
+    end
+  else
+    location = file_path
+  end
+  vim.fn.setreg('+', location)
+end, { desc = 'Copy relative path (with line numbers in visual mode)' })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
 
