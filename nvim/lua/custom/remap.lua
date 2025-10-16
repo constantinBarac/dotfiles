@@ -22,8 +22,13 @@ vim.keymap.set({ 'n', 'v' }, '<leader>crp', function()
   local mode = vim.fn.mode()
   local location
   if mode == 'v' or mode == 'V' or mode == string.char(22) then
-    local line_number = vim.fn.line '.'
-    location = file_path .. ':' .. line_number
+    local start_line = vim.fn.line 'v'
+    local end_line = vim.fn.line '.'
+    if start_line == end_line then
+      location = file_path .. ':' .. start_line
+    else
+      location = file_path .. ':' .. start_line .. '-' .. end_line
+    end
     local esc = vim.api.nvim_replace_termcodes('<esc>', true, false, true)
     vim.api.nvim_feedkeys(esc, 'x', false)
   else
