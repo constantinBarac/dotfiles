@@ -34,3 +34,10 @@ eval "$(nodenv init - --no-rehash bash)"
 eval "$(zoxide init zsh)"
 
 source ~/.airc
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# opencode
+export PATH=/Users/ibar/.opencode/bin:$PATH
