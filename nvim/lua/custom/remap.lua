@@ -53,3 +53,9 @@ vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Conditionally load work-specific remaps
+local work_remap_path = vim.fn.stdpath 'config' .. '/lua/custom/work_remap.lua'
+if vim.fn.filereadable(work_remap_path) == 1 then
+  require 'custom.work_remap'
+end
