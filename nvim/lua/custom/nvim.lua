@@ -471,6 +471,7 @@ require('lazy').setup({
         'terraform',
         'hcl',
         'starlark',
+        'dockerfile',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
