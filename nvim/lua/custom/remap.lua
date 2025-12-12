@@ -22,8 +22,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>crp', function()
   local mode = vim.fn.mode()
   local location
   if mode == 'v' or mode == 'V' or mode == string.char(22) then
-    local start_line = vim.fn.line 'v'
-    local end_line = vim.fn.line '.'
+    local v_line = vim.fn.line 'v'
+    local cursor_line = vim.fn.line '.'
+    local start_line = math.min(v_line, cursor_line)
+    local end_line = math.max(v_line, cursor_line)
     if start_line == end_line then
       location = file_path .. ':' .. start_line
     else
