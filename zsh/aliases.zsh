@@ -1,5 +1,5 @@
 # Eza (better ls)
-alias ls='eza --color=always --group-directories-first --icons'
+alias ls="eza -lah --git --icons=always $@"
 alias ll='eza -la --icons --octal-permissions --group-directories-first'
 alias l='eza -bGF --header --git --color=always --group-directories-first --icons'
 alias llm='eza -lbGd --header --git --sort=modified --color=always --group-directories-first --icons' 
