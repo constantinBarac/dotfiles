@@ -40,6 +40,29 @@ vim.keymap.set({ 'n', 'v' }, '<leader>crp', function()
   print('Copied: ' .. location)
 end, { desc = 'Copy relative path (with line number in visual mode)' })
 
+vim.keymap.set({ 'n', 'v' }, '<leader>cap', function()
+  local file_path = vim.fn.expand '%:p'
+  local mode = vim.fn.mode()
+  local location
+  if mode == 'v' or mode == 'V' or mode == string.char(22) then
+    local v_line = vim.fn.line 'v'
+    local cursor_line = vim.fn.line '.'
+    local start_line = math.min(v_line, cursor_line)
+    local end_line = math.max(v_line, cursor_line)
+    if start_line == end_line then
+      location = file_path .. ':' .. start_line
+    else
+      location = file_path .. ':' .. start_line .. '-' .. end_line
+    end
+    local esc = vim.api.nvim_replace_termcodes('<esc>', true, false, true)
+    vim.api.nvim_feedkeys(esc, 'x', false)
+  else
+    location = file_path
+  end
+  vim.fn.setreg('+', location)
+  print('Copied: ' .. location)
+end, { desc = 'Copy absolute path (with line number in visual mode)' })
+
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
 
 -- This is going to get me cancelled
