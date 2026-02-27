@@ -1,20 +1,43 @@
-# Theme
-theme = catppuccin-mocha
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
 
 # Font
-font-family = "JetBrainsMono Nerd Font"
+font-family = JetBrainsMono Nerd Font Mono
 font-size = 13
+font-thicken = true
+adjust-cell-width = "-5%"
+adjust-cell-height = "5%"
+
+# Theme
+theme = light:TokyoNight Day,dark:TokyoNight Night
 
 # Window
 window-padding-x = 10
 window-padding-y = 10
+window-padding-balance = true
 macos-titlebar-style = hidden
+macos-option-as-alt = true
+background-opacity = 0.95
+background-blur-radius = 20
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# Quick terminal
+quick-terminal-position = top
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.1
 
 # Shell
 command = /bin/zsh
 
 # Keybindings
 keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = "cmd+right=text:'\x1b[F'"
+keybind = shift+enter=text:\x1b\r
 keybind = cmd+t=new_tab
 keybind = cmd+w=close_surface
 keybind = cmd+c=copy_to_clipboard
